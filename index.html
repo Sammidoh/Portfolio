@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samuel Ngige Maina — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cyan: #00f5d4;
+    --orange: #ff6b35;
+    --yellow: #ffd60a;
+    --dark: #0a0a0f;
+    --card: #111118;
+    --border: rgba(0,245,212,0.2);
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-size: 1rem; font-weight: 800; letter-spacing: 0.1em; color: var(--cyan); font-family: 'Space Mono', monospace; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,212,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,212,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; top: -10%; right: -5%; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,245,212,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: 10%; left: -5%; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,245,212,0.08); border: 1px solid var(--border);
+    color: var(--cyan); font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.12em; padding: 6px 14px;
+    border-radius: 2px; margin-bottom: 2rem; width: fit-content;
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 1;
+    letter-spacing: -0.02em; margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--cyan); }
+  .hero-sub {
+    font-size: 1rem; color: var(--muted); max-width: 560px;
+    line-height: 1.8; margin-bottom: 2.5rem; font-weight: 400;
+  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 3rem; }
+  .badge {
+    padding: 6px 16px; border: 1px solid; font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.1em; border-radius: 2px;
+  }
+  .badge-cyan { border-color: var(--cyan); color: var(--cyan); background: rgba(0,245,212,0.06); }
+  .badge-orange { border-color: var(--orange); color: var(--orange); background: rgba(255,107,53,0.06); }
+  .badge-yellow { border-color: var(--yellow); color: var(--yellow); background: rgba(255,214,10,0.06); }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 14px 32px; background: var(--cyan); color: #000;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; border: none; cursor: pointer;
+    border-radius: 2px; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,245,212,0.3); }
+  .btn-outline {
+    padding: 14px 32px; background: transparent; color: var(--text);
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em;
+    text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+    border-radius: 2px; text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2.5rem; }
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: 0.7rem;
+    letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+    line-height: 1.1; margin-bottom: 3rem; letter-spacing: -0.02em;
+  }
+  .section-title span { color: var(--orange); }
+
+  /* SKILLS */
+  #skills { background: #0d0d14; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1rem;
+  }
+  .icon-cyan { background: rgba(0,245,212,0.12); }
+  .icon-orange { background: rgba(255,107,53,0.12); }
+  .icon-yellow { background: rgba(255,214,10,0.12); }
+  .skill-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .skill-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .skill-tag {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    padding: 3px 10px; border-radius: 2px;
+    background: rgba(255,255,255,0.05); color: var(--muted);
+  }
+
+  /* EXPERIENCE */
+  .exp-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem;
+    display: grid; grid-template-columns: auto 1fr; gap: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .exp-card:hover { border-color: var(--orange); }
+  .exp-dot-col { display: flex; flex-direction: column; align-items: center; }
+  .exp-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 4px; }
+  .exp-line { width: 2px; flex: 1; background: rgba(255,107,53,0.2); margin-top: 8px; }
+  .exp-role { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .exp-company { color: var(--orange); font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.08em; }
+  .exp-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-bottom: 1rem; margin-top: 4px; }
+  .exp-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+
+  /* EDUCATION */
+  #education { background: #0d0d14; }
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--yellow); }
+  .edu-icon {
+    width: 52px; height: 52px; border-radius: 4px; flex-shrink: 0;
+    background: rgba(255,214,10,0.1); display: flex; align-items: center;
+    justify-content: center; font-size: 1.6rem;
+  }
+  .edu-degree { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .edu-school { color: var(--yellow); font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.05em; }
+  .edu-info { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+  .edu-status {
+    display: inline-block; margin-top: 0.75rem; padding: 4px 12px;
+    background: rgba(255,214,10,0.1); color: var(--yellow);
+    border: 1px solid rgba(255,214,10,0.3);
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em;
+    border-radius: 2px;
+  }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: border-color 0.2s;
+  }
+  .contact-item:hover { border-color: var(--cyan); }
+  .contact-ico {
+    width: 44px; height: 44px; border-radius: 4px; flex-shrink: 0;
+    background: rgba(0,245,212,0.1); display: flex; align-items: center;
+    justify-content: center; font-size: 1.3rem;
+  }
+  .contact-label { font-size: 0.7rem; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .contact-value { font-size: 0.9rem; font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-text { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+  .footer-dot { color: var(--cyan); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-badges { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-cta { animation: fadeUp 0.6s 0.4s ease both; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SN/</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-tag">Available for opportunities</div>
+  <h1>Samuel<br /><span>Ngige</span></h1>
+  <p class="hero-sub">
+    Passionate about securing digital systems and building reliable network
+    infrastructures. Skilled in cybersecurity operations, threat management,
+    and hands-on technical support.
+  </p>
+  <div class="hero-badges">
+    <span class="badge badge-cyan">Cybersecurity Specialist</span>
+    <span class="badge badge-orange">Networking Specialist</span>
+    <span class="badge badge-yellow">IT Enthusiast</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Get in touch</a>
+    <a href="#skills" class="btn-outline">View skills</a>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">// what I do</p>
+  <h2 class="section-title">Core <span>Skills</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-icon icon-cyan">🛡️</div>
+      <h3>Cybersecurity</h3>
+      <p>Threat detection, vulnerability assessment, and security operations focused on protecting digital infrastructure.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Threat Management</span>
+        <span class="skill-tag">Security Ops</span>
+        <span class="skill-tag">Risk Assessment</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon icon-orange">🌐</div>
+      <h3>Networking</h3>
+      <p>Design and management of reliable network infrastructures including fibre technologies and enterprise systems.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Network Management</span>
+        <span class="skill-tag">Fibre Technologies</span>
+        <span class="skill-tag">Infrastructure</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon icon-yellow">⚙️</div>
+      <h3>IT Support & Systems</h3>
+      <p>Troubleshooting, system maintenance, and technical support for complex IT environments.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Troubleshooting</span>
+        <span class="skill-tag">System Security</span>
+        <span class="skill-tag">IT Support</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">// where I've worked</p>
+  <h2 class="section-title">Experience <span>&</span> Internship</h2>
+
+  <div class="exp-card">
+    <div class="exp-dot-col">
+      <div class="exp-dot"></div>
+      <div class="exp-line"></div>
+    </div>
+    <div>
+      <div class="exp-role">IT Intern</div>
+      <div class="exp-company">Dignity Fibre House</div>
+      <div class="exp-date">Current · Ongoing</div>
+      <p class="exp-desc">
+        Gaining hands-on experience in network management, fibre technologies,
+        cybersecurity practices, and technical support. Working on real-world
+        challenges across infrastructure setup, security monitoring, and
+        day-to-day IT operations.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">// academic background</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-card">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">Bachelor of Science in Computer Science</div>
+      <div class="edu-school">Mama Ngina University College</div>
+      <div class="edu-info">Focus areas: Cybersecurity · Networking · Systems</div>
+      <span class="edu-status">Currently Enrolled</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">// let's connect</p>
+  <h2 class="section-title">Get In <span>Touch</span></h2>
+  <div class="contact-grid">
+
+    <div class="contact-item">
+      <div class="contact-ico">📍</div>
+      <div>
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Nairobi, Kenya</div>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-ico">📧</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">samngige401@gmail.com</div>
+         <a href="mailto:samngige401@gmail.com" target="_blank" class="contact-link">Send Email</a>
+      </div>
+    </div>
+
+     <div class="contact-item">
+      <div class="contact-ico"> 📱</div>
+      <div>
+        <div class="contact-label">Mobile</div>
+        <div class="contact-value">0702328244</div>
+         <a href="tel:0702328244" target="_blank" class="contact-link">Call Now</a>
+      </div>
+    </div>
+     <div class="contact-item">
+      <div class="contact-ico">📧</div>
+      <div>
+        <div class="contact-label">Facebook</div>
+        <div class="contact-value">Sammy Ngige</div>
+         <a href="https://www.facebook.com/Sammy Ngige" target="_blank" class="contact-link">View Profile</a>
+      </div>
+       <div class="contact-item">
+      <div class="contact-ico">📧</div>
+      <div>
+        <div class="contact-label">Instagram</div>
+        <div class="contact-value">Sammy Ngige</div>
+         <a href="https://www.instagram.com/_Sammidoh.com254" target="_blank" class="contact-link">View Profile</a>
+      </div>
+
+    </div>
+    
+
+    <div class="contact-item">
+      <div class="contact-ico">🔗</div>
+      <div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value">Samuel Maina</div>
+            <a href="https://www.linkedin.com/in/samuel-maina-26a9b43b1?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-link">View Profile</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="contact-item">
+      <div class="contact-ico">💼</div>
+      <div>
+        <div class="contact-label">Currently At</div>
+        <div class="contact-value">Dignity Fibre House</div>
+      </div>
+    </div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">Samuel Ngige <span class="footer-dot">·</span> Cybersecurity & Networking</div>
+  <div class="footer-text">Built with <span class="footer-dot">♥</span> · 2025</div>
+</footer>
+
+</body>
+</html>
